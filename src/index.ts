@@ -1,11 +1,11 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import { rootRouter } from "./app/routes";
 
 const port = 3000;
 const app = express();
 app.use(rootRouter);
 
-app.get("/", (_, res) => {
+app.get("/", (_: Request, res: Response) => {
   res.json({ hello: "world" });
 });
 
