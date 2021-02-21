@@ -1,12 +1,14 @@
-FROM node:15
+FROM node:15-alpine
 
 WORKDIR /usr/src/demo
 
+COPY ./package.json ./package-lock.json ./
+
+RUN npm ci
+
+RUN npm i -g typescript ts-node
+
 COPY . . 
-
-RUN npm ci 
-
-RUN npm i -g typescript ts-node && tsc --init --rootDir .
 
 EXPOSE 3000
 

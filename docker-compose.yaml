@@ -1,16 +1,17 @@
-version: '3'
+version: "3"
 
-services:  
+services:
   app:
     build:
       context: .
-    networks: 
+    networks:
       - demo_net
     ports:
       - "3000:3000"
     volumes:
       - .:/usr/src/demo
-    depends_on: 
+      - /usr/src/demo/node_modules
+    depends_on:
       - db
     tty: true
     container_name: demo_app
@@ -21,17 +22,17 @@ services:
     container_name: demo_db
     restart: always
     tty: true
-    volumes: 
+    volumes:
       - ./mysql:/var/lib/mysql
-    environment: 
+    environment:
       - MYSQL_DATABASE=onmdb
       - MYSQL_ROOT_PASSWORD=pass
       - MYSQL_USER=root
-    networks: 
+    networks:
       - demo_net
     ports:
       - "3306:3306"
 
-networks: 
+networks:
   demo_net:
     driver: bridge
