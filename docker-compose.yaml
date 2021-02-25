@@ -5,12 +5,13 @@ services:
     build:
       context: .
     networks:
-      - demo_net
+      - net
     ports:
       - "3000:3000"
     volumes:
       - .:/usr/src/demo
-      - /usr/src/demo/node_modules
+    environment:
+      NODE_ENV: production
     depends_on:
       - db
     tty: true
@@ -29,10 +30,10 @@ services:
       - MYSQL_ROOT_PASSWORD=pass
       - MYSQL_USER=root
     networks:
-      - demo_net
+      - net
     ports:
       - "3306:3306"
 
 networks:
-  demo_net:
+  net:
     driver: bridge
